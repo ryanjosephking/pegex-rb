@@ -17,10 +17,10 @@ Jeweler::Tasks.new do |gem|
   gem.name = "pegex-rb"
   gem.homepage = "http://github.com/ryanjosephking/pegex-rb"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
-  gem.email = "rking@panoptic.com"
-  gem.authors = ["rking"]
+  gem.summary = %Q{The Ruby Pegex Parser Generator}
+  gem.description = %Q{Pegex is a Acmeist parser framework. It combines a PEG parser grammar syntax, with PCRE compatible Regular Expressions as the match tokens. Pegex draws heavily from Perl 6 Rules, and works equivalently in many modern programming languages.  With Pegex you can easily define new mini languages that can be equally compiled in many programming languages. ( from http://pegex.org )}
+  gem.email = "pegex@sharpsaw.org"
+  gem.authors = %w(rking ingy)
   # dependencies defined in Gemfile
 end
 Jeweler::RubygemsDotOrgTasks.new
@@ -32,13 +32,14 @@ Rake::TestTask.new(:test) do |test|
   test.verbose = true
 end
 
-require 'rcov/rcovtask'
-Rcov::RcovTask.new do |test|
-  test.libs << 'test'
-  test.pattern = 'test/**/test_*.rb'
-  test.verbose = true
-  test.rcov_opts << '--exclude "gems/*"'
-end
+# TODO - https://github.com/colszowka/simplecov
+#require 'rcov/rcovtask'
+#Rcov::RcovTask.new do |test|
+#  test.libs << 'test'
+#  test.pattern = 'test/**/test_*.rb'
+#  test.verbose = true
+#  test.rcov_opts << '--exclude "gems/*"'
+#end
 
 task :default => :test
 

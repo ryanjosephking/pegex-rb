@@ -14,7 +14,7 @@ require 'rake'
 require 'jeweler'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
-  gem.name = "pegex-rb"
+  gem.name = "pegex"
   gem.homepage = "http://github.com/ryanjosephking/pegex-rb"
   gem.license = "MIT"
   gem.summary = %Q{The Ruby Pegex Parser Generator}
@@ -48,7 +48,7 @@ Rake::RDocTask.new do |rdoc|
   version = File.exist?('VERSION') ? File.read('VERSION') : ""
 
   rdoc.rdoc_dir = 'rdoc'
-  rdoc.title = "pegex-rb #{version}"
+  rdoc.title = "pegex #{version}"
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end

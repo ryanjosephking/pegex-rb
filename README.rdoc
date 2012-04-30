@@ -15,7 +15,7 @@ With Pegex you can easily define new mini languages that can be equally compiled
 
 == Authors
 
-* Ryan King <rking@panoptic.com>
+* Ryan King <pegex@sharpsaw.org>
 * Ingy döt Net <ingy@ingy.net>
 
 == Copyright

@@ -1,10 +1,10 @@
-= pegex-rb
+= pegex
 
 Pegex is a Acmeist parser framework. It combines a PEG parser grammar syntax, with PCRE compatible Regular Expressions as the match tokens. Pegex draws heavily from Perl 6 Rules, and works equivalently in many modern programming languages. 
 
 With Pegex you can easily define new mini languages that can be equally compiled in many programming languages. ( from http://pegex.org )
 
-== Contributing to pegex-rb
+== Contributing to pegex
  
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
 * Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it.
@@ -13,8 +13,12 @@ With Pegex you can easily define new mini languages that can be equally compiled
 * Commit and push until you are happy with your contribution.
 * Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.
 
+== Authors
+
+* Ryan King <rking@panoptic.com>
+* Ingy döt Net <ingy@ingy.net>
+
 == Copyright
 
-Copyright (c) 2012 rking. See LICENSE.txt for
-further details.
+Copyright (c) 2012 rking. See LICENSE.txt for further details.
 

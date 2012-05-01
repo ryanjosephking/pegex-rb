@@ -1,12 +1,14 @@
 require 'yaml'
-require 'pp'
 
-data = YAML::load( File.open( ARGV[0] ) )
+data = YAML::load(File.open ARGV[0])
 
-module_ = <<eos
+puts <<eos
 ##
 # = Pegex Grammar module for pegex
 #
+
+# Note: This is a generated file. However, I won't tell you not to edit,
+# because... who am I to say?
 
 class Grammar
     def initialize
@@ -14,5 +16,3 @@ class Grammar
     end
 end
 eos
-
-puts module_

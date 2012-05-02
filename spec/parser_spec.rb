@@ -17,7 +17,8 @@ end
 describe Pegex::Parser do
   before(:each) do
     require 'pegex/pegex/grammar'
-    @prs = Pegex::Parser.new grammar: Pegex::Pegex::Grammar.new
+    @grm = Pegex::Pegex::Grammar.new
+    @prs = Pegex::Parser.new grammar: @grm
     @input = 'XXX' # XXX
   end
   # TODO:
@@ -38,5 +39,17 @@ describe Pegex::Parser do
     before = @input.clone
     @prs.parse @input
     @input.should eq before
+  end
+  it 'should start_rule explicitly' do
+    @prs.find_start_rule(:yeppo).should eq :yeppo
+  end
+  it 'should start_rule with "+top"' do
+    @prs.find_start_rule.should eq 'grammar'
+  end
+  it 'should start_rule with literal "TOP"' do
+    tmp = Testgrammar.new
+    tmp.stub(:tree) { {'TOP' => true} }
+    @prs.grammar = tmp
+    @prs.find_start_rule.should eq 'TOP'
   end
 end

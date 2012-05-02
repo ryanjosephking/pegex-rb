@@ -1,4 +1,5 @@
 require 'helper'
+require 'pegex/pegex/grammar'
 
 describe Pegex::Pegex::Grammar do
   it "should have a pegexish tree" do

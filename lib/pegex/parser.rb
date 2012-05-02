@@ -19,6 +19,10 @@ class Pegex
     def parse input, args = {}
       # XXX "input" is a simple string ATM.
       @input = input.clone
+      find_grammar
+    end
+
+    def find_grammar
       raise 'No grammar specified' if @grammar.nil?
       if ::String == @grammar.class
         require @grammar

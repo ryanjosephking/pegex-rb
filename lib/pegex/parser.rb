@@ -22,6 +22,9 @@ class Pegex
       find_receiver
       start_rule = find_start_rule args[:start_rule]
       # TODO?: give the receiver a reference to self ? (.pm)
+      # TODO:
+      # m = match start_rule
+      # @receiver.data or m
     end
     def find_grammar
       raise 'No grammar specified' if @grammar.nil?

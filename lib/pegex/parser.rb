@@ -15,13 +15,12 @@ class Pegex
       @wrap = true # Should come from receiver.wrap (pm)
       #py: terminator
     end
-
     def parse input, args = {}
       # XXX "input" is a simple string ATM.
       @input = input.clone
       find_grammar
+      start_rule = find_start_rule args[:start_rule]
     end
-
     def find_grammar
       raise 'No grammar specified' if @grammar.nil?
       if ::String == @grammar.class
@@ -29,14 +28,18 @@ class Pegex
         @grammar = eval(camelize @grammar).new
       end
     end
-
+    def find_start_rule explicit = nil
+      explicit or 
+        @grammar.tree['+top'] or 
+        @grammar.tree.has_key?('TOP') ? 'TOP' : nil
+        # XXX Parser.pm has an (unreachable?) "die" here.
+    end
     def default_receiver maybe_recvr
       maybe_recvr or begin
         require 'pegex/receiver'
         Receiver.new
       end
     end
-
     # (Mostly) lifted from ActiveSupport::Inflector#camelize -
     def camelize string
       string = string.to_s.capitalize
@@ -44,5 +47,5 @@ class Pegex
         "#{$1}#{$2.capitalize}"
       }.gsub('/', '::')
     end
-end
+  end
 end

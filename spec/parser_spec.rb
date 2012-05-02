@@ -30,10 +30,10 @@ describe Pegex::Parser do
     expect { @prs.parse @input }.to raise_error RuntimeError
   end
   it "should pull in grammar by string" do
-    prs = described_class.new grammar: 'testgrammar'
-    prs.parse @input
-    prs.grammar.class.should eq Testgrammar
-    prs.camelize('hi_hi/bi').should eq 'HiHi::Bi'
+    @prs.grammar = 'testgrammar'
+    @prs.parse @input
+    @prs.grammar.class.should eq Testgrammar
+    @prs.camelize('hi_hi/bi').should eq 'HiHi::Bi'
   end
   it 'should not alter actual input' do
     before = @input.clone

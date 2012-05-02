@@ -33,7 +33,6 @@ describe Pegex::Parser do
     @prs.grammar = 'testgrammar'
     @prs.parse @input
     @prs.grammar.class.should eq Testgrammar
-    @prs.camelize('hi_hi/bi').should eq 'HiHi::Bi'
   end
   it 'should not alter actual input' do
     before = @input.clone
@@ -51,5 +50,13 @@ describe Pegex::Parser do
     tmp.stub(:tree) { {'TOP' => true} }
     @prs.grammar = tmp
     @prs.find_start_rule.should eq 'TOP'
+  end
+  it "should pull in receiver by string" do
+    @prs.receiver = 'testrecvr'
+    @prs.parse @input
+    @prs.receiver.class.should eq Testrecvr
+  end
+  it "should camelize" do
+    @prs.camelize('hi_hi/bi').should eq 'HiHi::Bi'
   end
 end

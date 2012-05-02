@@ -19,13 +19,18 @@ class Pegex
       # XXX "input" is a simple string ATM.
       @input = input.clone
       find_grammar
+      find_receiver
       start_rule = find_start_rule args[:start_rule]
     end
     def find_grammar
       raise 'No grammar specified' if @grammar.nil?
       if ::String == @grammar.class
-        require @grammar
-        @grammar = eval(camelize @grammar).new
+        @grammar = string_new @grammar
+      end
+    end
+    def find_receiver
+      if ::String == @receiver.class
+        @receiver = string_new @receiver
       end
     end
     def find_start_rule explicit = nil
@@ -39,6 +44,10 @@ class Pegex
         require 'pegex/receiver'
         Receiver.new
       end
+    end
+    def string_new path
+        require path
+        eval(camelize path).new
     end
     # (Mostly) lifted from ActiveSupport::Inflector#camelize -
     def camelize string

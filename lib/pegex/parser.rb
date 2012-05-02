@@ -18,7 +18,12 @@ class Pegex
 
     def parse input, args = {}
       # XXX "input" is a simple string ATM.
+      @input = input.clone
       raise 'No grammar specified' if @grammar.nil?
+      if ::String == @grammar.class
+        require @grammar
+        @grammar = eval(camelize @grammar).new
+      end
     end
 
     def default_receiver maybe_recvr
@@ -27,5 +32,13 @@ class Pegex
         Receiver.new
       end
     end
-  end
+
+    # (Mostly) lifted from ActiveSupport::Inflector#camelize -
+    def camelize string
+      string = string.to_s.capitalize
+      string.gsub(/(?:_|(\/))([a-z\d]*)/i) {
+        "#{$1}#{$2.capitalize}"
+      }.gsub('/', '::')
+    end
+end
 end

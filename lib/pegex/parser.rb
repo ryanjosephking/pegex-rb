@@ -9,10 +9,10 @@ class Pegex
       @input = nil
       @buffer = nil
       @indent = 0
-      @position = nil # was: has 'position' => default => sub {0};
+      @position = nil
 
       @throw_on_error = true
-      @wrap = true # Should come from receiver.wrap (pm)
+      @wrap = true # Should come from receiver.wrap (.pm)
       #py: terminator
     end
     def parse input, args = {}
@@ -21,6 +21,7 @@ class Pegex
       find_grammar
       find_receiver
       start_rule = find_start_rule args[:start_rule]
+      # TODO?: give the receiver a reference to self ? (.pm)
     end
     def find_grammar
       raise 'No grammar specified' if @grammar.nil?

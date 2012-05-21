@@ -1,4 +1,6 @@
 require 'helper'
+require 'testgrammar'
+
 require 'pegex/parser'
 
 describe Pegex::Parser do
@@ -29,16 +31,12 @@ describe Pegex::Parser do
     @prs.grammar = nil
     expect { @prs.parse @input }.to raise_error RuntimeError
   end
-  it "should pull in grammar by string" do
-    @prs.grammar = 'testgrammar'
-    @prs.parse @input
-    @prs.grammar.class.should eq Testgrammar
-  end
   it 'should not alter actual input' do
     before = @input.clone
     @prs.parse @input
     @input.should eq before
   end
+
   it 'should start_rule explicitly' do
     @prs.find_start_rule(:yeppo).should eq :yeppo
   end
@@ -51,12 +49,10 @@ describe Pegex::Parser do
     @prs.grammar = tmp
     @prs.find_start_rule.should eq 'TOP'
   end
-  it "should pull in receiver by string" do
-    @prs.receiver = 'testrecvr'
-    @prs.parse @input
-    @prs.receiver.class.should eq Testrecvr
-  end
-  it "should camelize" do
-    @prs.camelize('hi_hi/bi').should eq 'HiHi::Bi'
+  it 'should require a start rule of some sort' do
+    tmp = Testgrammar.new
+    tmp.stub(:tree) { {'monkeys' => true} }
+    @prs.grammar = tmp
+    expect { @prs.find_start_rule }.to raise_error RuntimeError
   end
 end

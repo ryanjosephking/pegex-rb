@@ -37,25 +37,24 @@ describe Pegex::Parser do
     @input.should eq before
   end
 
+  def use_test_grammar tree
+    tmp = Testgrammar.new
+    tmp.stub(:tree) { tree }
+    @prs.grammar = tmp
+  end
   it 'should start_rule explicitly' do
     @prs.find_start_rule(:yeppo).should eq :yeppo
   end
   it 'should start_rule with "+top" key/val' do
-    tmp = Testgrammar.new
-    tmp.stub(:tree) { {'+top' => :in_tree_spec} }
-    @prs.grammar = tmp
+    use_test_grammar '+top' => :in_tree_spec
     @prs.find_start_rule.should eq :in_tree_spec
   end
   it 'should start_rule with literal "TOP"' do
-    tmp = Testgrammar.new
-    tmp.stub(:tree) { {'TOP' => true} }
-    @prs.grammar = tmp
+    use_test_grammar 'TOP' => true
     @prs.find_start_rule.should eq 'TOP'
   end
   it 'should require a start rule of some sort' do
-    tmp = Testgrammar.new
-    tmp.stub(:tree) { {'monkeys' => true} }
-    @prs.grammar = tmp
+    use_test_grammar 'monkeys' => true
     expect { @prs.find_start_rule }.to raise_error RuntimeError
   end
 end

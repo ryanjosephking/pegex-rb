@@ -1,6 +1,11 @@
 class Pegex
   NO_GRAMMAR_ERR = 'No grammar object specified'
-  NO_START_RULE_ERR = 'No start rule'
+  NO_START_RULE_ERR = <<-EOT
+No start rule. Try one of these:
+ - Pass Pegex::Parser#parse a :start_rule parameter
+ - Add a '+top' key to your grammar tree whose value is the start rule
+ - Add a 'TOP' key to your grammar that is the start rule itself.
+  EOT
   class Parser
     attr_accessor :grammar, :receiver, :debug
     def initialize args

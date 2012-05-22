@@ -40,8 +40,11 @@ describe Pegex::Parser do
   it 'should start_rule explicitly' do
     @prs.find_start_rule(:yeppo).should eq :yeppo
   end
-  it 'should start_rule with "+top"' do
-    @prs.find_start_rule.should eq 'grammar'
+  it 'should start_rule with "+top" key/val' do
+    tmp = Testgrammar.new
+    tmp.stub(:tree) { {'+top' => :in_tree_spec} }
+    @prs.grammar = tmp
+    @prs.find_start_rule.should eq :in_tree_spec
   end
   it 'should start_rule with literal "TOP"' do
     tmp = Testgrammar.new

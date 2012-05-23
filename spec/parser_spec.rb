@@ -57,4 +57,13 @@ describe Pegex::Parser do
     use_test_grammar 'monkeys' => true
     expect { @prs.find_start_rule }.to raise_error RuntimeError
   end
+
+  it 'should get_min_max' do
+      @prs.get_min_max({ '+min' => 3, '+max' => 10 }).should eq [ 3, 10 ]
+      @prs.get_min_max({ '+min' => 3 }).should eq [ 3, 0 ]
+      @prs.get_min_max({ '+max' => 10 }).should eq [ 0, 10 ]
+      @prs.get_min_max({ }).should eq [ 1, 1 ]
+  end
+
+  # TODO?: it 'should @receiver.initialize' (Parser.pm line 91)
 end

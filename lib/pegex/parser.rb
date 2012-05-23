@@ -43,5 +43,13 @@ No start rule. Try one of these:
         Receiver.new
       end
     end
+    def get_min_max next_
+        # There is a better way to say this.
+        if next_.has_key? '+min' or next_.has_key? '+max'
+            [ next_['+min'] || 0, next_['+max'] || 0 ]
+        else
+            [ 1, 1]
+        end
+    end
   end
 end

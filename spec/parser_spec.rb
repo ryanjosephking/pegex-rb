@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require 'helper'
 require 'testgrammar'
 
@@ -66,4 +68,43 @@ describe Pegex::Parser do
   end
 
   # TODO?: it 'should @receiver.initialize' (Parser.pm line 91)
+end
+
+
+describe Pegex::Parser::Buffer do
+    before :each do
+        @b = Pegex::Parser::Buffer.new <<-'EOT'
+<html>
+ <head><title>Zombo.com</title></head>
+ <body>
+  <p>
+   <h1>Welcome to Zombocom</h1>
+   <div id="main">
+    …Anything is possible.
+   </div>
+  </p>
+</html>
+        EOT
+    end
+
+    it 'should match simply' do
+      @b.match(/Zombo/).should eq []
+      @b.match(/Rhombo/).should be_false
+    end
+    it 'should return single captures directly' do
+      @b.match(/(Zom)(bo)/).should eq [['Zom','bo']]
+    end
+    it 'should return multiple captures in an Array' do
+      @b.match(/Any(\w+)/).should eq ['thing']
+    end
+    it 'should retain position context' do
+      @b.match(/Welcome /).should eq []
+      @b.match(/\Gto Zombocom/).should eq []
+      @b.match(/\GAnything is possible/).should be_false
+      # XXX what about /$regexp/g, the 'g' I mean.
+    end
+    it 'stops trying at some point' do
+      @b.match /.*/m # fast-forward to end
+      expect { 1001.times { @b.match /unpossible/ } }.to raise_error RuntimeError
+    end
 end

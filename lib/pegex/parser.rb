@@ -48,8 +48,28 @@ No start rule. Try one of these:
         if next_.has_key? '+min' or next_.has_key? '+max'
             [ next_['+min'] || 0, next_['+max'] || 0 ]
         else
-            [ 1, 1]
+            [ 1, 1 ]
         end
     end
+
+      class Buffer
+        TOO_MANY_OVERREACHES =
+          'Your grammar does not seem to terminate at end of stream'
+        def initialize str
+          @str = str
+          @pos = 0
+          @match_overreaches = 0
+        end
+        def match rxp
+          flag_overreach if @pos >= @str.length
+          m = @str.match(rxp, @pos) or return
+          @pos = m.end 0
+          m.captures.size > 1 ? [ m.captures ] : m.captures
+        end
+        def flag_overreach
+            @match_overreaches += 1
+            fail TOO_MANY_OVERREACHES if @match_overreaches > 1000
+          end
+      end
   end
 end
